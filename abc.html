@@ -43,7 +43,7 @@
 
 <table>
 <tr><td>
-<textarea rows="4" cols="50" id="a"></textarea>
+<textarea rows="8" cols="50" id="a"></textarea>
 </td></tr>
 
 <tr><td>
@@ -51,7 +51,7 @@
 </td></tr>
 
 <tr><td>
-<textarea rows="4" cols="50" id="b"></textarea>
+<textarea rows="8" cols="50" id="b"></textarea>
 </td></tr>
 
 </table>
@@ -71,10 +71,9 @@ $.ajax({
 
 
 function start(){
-	//alert("幹");
 	var input = document.getElementById("a").value;
 	for(i=0;i<input.length;i++){
-		document.getElementById("b").value += data[input.substr(i, 1)];
+		document.getElementById("b").value += data[input.substr(i, 1)] + " ";
 	}
 	
 	
