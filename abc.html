@@ -74,12 +74,19 @@ function start(){
 	//alert("幹");
 	var input = document.getElementById("a").value;
 	document.getElementById("b").value = "";
+	var c = false;
 	for(i=0;i<input.length;i++){
 		t = data[input.substr(i, 1)];
 		if (typeof t === 'undefined'){
-			document.getElementById("b").value += input.substr(i, 1) + " ";
+			if (c == true){
+				document.getElementById("b").value += input.substr(i, 1);
+			}else{
+				document.getElementById("b").value += input.substr(i, 1) + " ";
+				c = true;
+			}
 		}else{
 			document.getElementById("b").value += data[input.substr(i, 1)] + " ";
+			c = false;
 		}
 	}
 	
