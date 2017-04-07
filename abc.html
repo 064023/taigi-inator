@@ -1,0 +1,90 @@
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="jquery-3.1.1.min.js"></script>
+	<style type="text/css">
+	html {
+		font-family: Microsoft JhengHei;
+	}
+	body {
+		padding: 20px;
+	}
+	h1 {
+		display: inline-block;
+		margin: 0px 20px 0px 0px;
+	}
+	#start {
+		border: solid 2pt;
+		padding: 3pt 30pt;
+		border-radius: 5pt;
+		background-color: #b3d9ff;
+		width: 100%;
+	}
+	table {
+	    width: 100%;
+	}
+	td {
+		padding: 10pt 2pt;
+		text-align: center;
+	}
+	textarea {
+	    width: 100%;
+	}
+	
+	
+	</style>
+
+<title>台羅拼音終結者</title>
+</head>
+
+<body>
+<h1>台羅拼音終結者</h1>
+
+<table>
+<tr><td>
+<textarea rows="4" cols="50" id="a"></textarea>
+</td></tr>
+
+<tr><td>
+<span id="start" onclick="start()">轉換</span>
+</td></tr>
+
+<tr><td>
+<textarea rows="4" cols="50" id="b"></textarea>
+</td></tr>
+
+</table>
+
+<script>
+
+var data = [];
+$.ajax({
+	url : "list.json",
+	dataType : "json",
+	mimeType: "application/json",
+	success : function(result){
+		data = result;
+		
+	}
+});
+
+
+function start(){
+	//alert("幹");
+	var input = document.getElementById("a").value;
+	for(i=0;i<input.length;i++){
+		document.getElementById("b").value += data[input.substr(i, 1)];
+	}
+	
+	
+}
+
+
+
+
+</script>
+
+
+</body>
+</html>
