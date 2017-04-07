@@ -11,7 +11,6 @@
 		padding: 20px;
 	}
 	h1 {
-		display: inline-block;
 		margin: 0px 20px 0px 0px;
 	}
 	#start {
@@ -20,7 +19,16 @@
 		border-radius: 5pt;
 		background-color: #b3d9ff;
 		width: 100%;
+		cursor: pointer;
 	}
+	
+	#start:hover {
+		border: solid 3pt orange;
+		padding: 1pt 28pt;
+		background-color: #f9ff00;
+		
+	}
+	
 	table {
 	    width: 100%;
 	}
@@ -43,7 +51,7 @@
 
 <table>
 <tr><td>
-<textarea rows="8" cols="50" id="a"></textarea>
+<textarea rows="8" cols="50" id="a" placeholder="請輸入文章..."></textarea>
 </td></tr>
 
 <tr><td>
