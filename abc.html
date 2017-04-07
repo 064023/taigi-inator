@@ -71,9 +71,16 @@ $.ajax({
 
 
 function start(){
+	//alert("幹");
 	var input = document.getElementById("a").value;
+	document.getElementById("b").value = "";
 	for(i=0;i<input.length;i++){
-		document.getElementById("b").value += data[input.substr(i, 1)] + " ";
+		t = data[input.substr(i, 1)];
+		if (typeof t === 'undefined'){
+			document.getElementById("b").value += input.substr(i, 1) + " ";
+		}else{
+			document.getElementById("b").value += data[input.substr(i, 1)] + " ";
+		}
 	}
 	
 	
