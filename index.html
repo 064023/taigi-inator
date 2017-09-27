@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="icon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		.table-striped > tbody > tr:nth-child(odd) > td {
+			background-color: linen;
+		}
+		.table-striped > tbody > tr:nth-child(even) > td {
+			background-color: aliceblue;
+		}
+	</style>
+	<title>台羅拼音終結者</title>
+</head>
+<body>
+<div class="container">
+	<h1>台羅拼音終結者</h1>
+	
+	
+	<p>
+		<span class="glyphicon glyphicon-pencil"></span> 感謝 
+		<a href="http://zin-a.blogspot.tw/2017/04/blog-post_7.html" target="_blank">進也拍撓涼</a> 提供資料及技術指導
+	</p>
+	<p>
+		<span class="glyphicon glyphicon-pencil"></span> 歡迎使用全新 
+		<a href="https://www.facebook.com/台羅拼音終結者-113804092590975/" target="_blank">台羅拼音終結者 Messenger 聊天機器人</a>
+	</p>
+	<p>
+		<span class="glyphicon glyphicon-pencil"></span> 記號說明： <b>abc1</b> 白話音、 <b>[abc1]</b> 文讀音、 <b>?abc1</b> 訓讀、 <b>*abc1</b> 錯讀
+	</p>
+	
+	<p></p>
+	<p></p>
+	
+	<div>
+		<textarea class="form-control" rows="5" id="a" placeholder="請輸入文章...">台羅拼音終結者</textarea>
+	</div>
+	<p></p>
+	<div>
+		<button type="button" class="btn btn-warning btn-block" id="start" onclick="start()">
+			<span class="glyphicon glyphicon-refresh"></span> 轉換 
+			<span class="glyphicon glyphicon-arrow-down"></span>
+		</button>
+	</div>
+	<p></p>
+	<div>
+	
+	
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#home">全文轉換</a></li>
+			<li><a data-toggle="tab" href="#menu1">逐句轉換對照</a></li>
+		</ul>
+		
+		<div class="tab-content">
+			<div id="home" class="tab-pane fade in active">
+				<div class="panel panel-default">
+					<div class="panel-body" id="b" style="background-color: aliceblue;" >tai5 lo5 phing1 im1 tsiong1 kat4/[kiat4] tsia2 </div>
+				</div>
+				
+			</div>
+			<div id="menu1" class="tab-pane fade">
+				<table class="table table-striped">
+					<tbody id="c">
+						<tr><td>台羅拼音終結者</td></tr>
+						<tr><td>tai5 lo5 phing1 im1 tsiong1 kat4/[kiat4] tsia2 </td></tr>
+					</tbody>
+				</table>
+				
+				
+			</div>
+		</div>
+	
+	
+	</div>
+	<p></p>
+	
+	<div id="notfound" style="display: none;">
+		<p>
+			<span class="glyphicon glyphicon-pencil"></span> 未轉換：
+		</p>
+		<div class="panel panel-default">
+			<div class="panel-body" id="d" style="background-color: whitesmoke;" ></div>
+		</div>
+	</div>
+	
+	
+	
+	<div style="text-align: right;" >
+		<iframe data-aa='622483' src='//ad.a-ads.com/622483?size=320x50' scrolling='no' style='width:320px; height:50px; border:0px; padding:0;overflow:hidden' allowtransparency='true'></iframe>
+	</div>
+	
+	<script>
+
+	var data = [];
+	$.ajax({
+		url : "list.json",
+		dataType : "json",
+		mimeType: "application/json",
+		success : function(result){
+			data = result;
+		}
+	});
+
+
+	function start(){
+		var input = $("#a").val();
+		input = input.split("\n");
+		var notfound = [];
+		var notfoundskip = ""; // 手動過濾
+		$("#notfound").hide();
+		
+		$("#b").html("");
+		$("#c").html("");
+		
+		for(k=0; k<input.length; k++){
+			output = "";
+			for(i=0; i<input[k].length; i++){
+				t = data[input[k].substr(i, 1)];
+				if (typeof t === 'undefined'){
+					if(input[k].substr(i, 1).replace(/[^\u4e00-\u9fa5]/,"")!=""){ // 過濾掉非中文
+						if(notfound.indexOf(input[k].substr(i, 1))==-1) {　// 過濾掉重複
+							if(! notfoundskip.includes(input[k].substr(i, 1))){
+								notfound.push(input[k].substr(i, 1));
+							}
+						}
+					}
+					if (typeof data[input[k].substr(i+1, 1)] === 'undefined'){
+						output += input[k].substr(i, 1);
+					}else{
+						output += input[k].substr(i, 1) + " ";
+					}
+				}else{
+					output += data[input[k].substr(i, 1)] + " ";
+				}
+				
+			}
+			
+			$("#b").html($("#b").html() + output + "<br>");
+			$("#c").html($("#c").html() + "<tr><td>" + input[k] + "</td></tr>");
+			$("#c").html($("#c").html() + "<tr><td>" + output + "</td></tr>");
+			
+		}
+		
+		if(notfound.length != 0) {
+			$("#notfound").show();
+			$("#d").html(notfound.join(" "));
+		}
+		
+	}
+
+
+
+
+	</script>
+</div>
+</body>
+</html>
